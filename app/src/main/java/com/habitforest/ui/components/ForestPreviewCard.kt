@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -16,24 +17,23 @@ import com.habitforest.ui.theme.*
 
 @Composable
 fun ForestPreviewCard(habits: List<Habit>, onClick: () -> Unit) {
-    Surface(
+    GamePanel(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
-        shape           = RoundedCornerShape(20.dp),
-        shadowElevation = 6.dp
+            .height(200.dp)
+            .clickable(onClick = onClick)
     ) {
         Box(
             Modifier
-                .fillMaxWidth()
-                .height(180.dp)
+                .fillMaxSize()
+                .clip(RoundedCornerShape(8.dp))
                 .background(Brush.verticalGradient(listOf(Color(0xFF0D2B1D), DarkMoss, EarthBrown.copy(0.6f))))
         ) {
             // Ground strip
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .height(36.dp)
+                    .height(40.dp)
                     .align(Alignment.BottomCenter)
                     .background(EarthBrown.copy(alpha = 0.45f))
             )
@@ -44,10 +44,10 @@ fun ForestPreviewCard(habits: List<Habit>, onClick: () -> Unit) {
                     verticalArrangement   = Arrangement.Center,
                     horizontalAlignment   = Alignment.CenterHorizontally
                 ) {
-                    Text("🌱", fontSize = 36.sp)
+                    Text("🏜️", fontSize = 42.sp)
                     Spacer(Modifier.height(4.dp))
-                    Text("Your forest is empty", color = SkyBlue, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                    Text("Plant habits to see trees grow!", color = MossGreen, fontSize = 11.sp)
+                    Text("DESERTED REALM", style = MaterialTheme.typography.titleLarge, color = GameGold)
+                    Text("Plant habits to grow your kingdom", style = MaterialTheme.typography.labelMedium, color = SkyBlue)
                 }
             } else {
                 // Trees laid out bottom-up in a grid
@@ -55,14 +55,14 @@ fun ForestPreviewCard(habits: List<Habit>, onClick: () -> Unit) {
                     columns = GridCells.Fixed(6),
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(start = 12.dp, end = 12.dp, top = 20.dp, bottom = 36.dp),
+                        .padding(start = 12.dp, end = 12.dp, top = 20.dp, bottom = 40.dp),
                     verticalArrangement   = Arrangement.Bottom,
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                     userScrollEnabled = false
                 ) {
                     items(habits.take(12)) { habit ->
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text(habit.treeEmoji, fontSize = 26.sp)
+                            Text(habit.treeEmoji, fontSize = 28.sp)
                         }
                     }
                 }
@@ -72,16 +72,15 @@ fun ForestPreviewCard(habits: List<Habit>, onClick: () -> Unit) {
             Surface(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .padding(10.dp),
-                shape = RoundedCornerShape(12.dp),
-                color = NightForest.copy(alpha = 0.7f)
+                    .padding(8.dp),
+                shape = RoundedCornerShape(8.dp),
+                color = NightForest.copy(alpha = 0.8f)
             ) {
                 Text(
-                    "View Forest →",
-                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                    color = SkyBlue,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold
+                    "EXPLORE →",
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    color = GameGold,
+                    style = MaterialTheme.typography.labelMedium
                 )
             }
 
@@ -90,15 +89,15 @@ fun ForestPreviewCard(habits: List<Habit>, onClick: () -> Unit) {
                 Surface(
                     modifier = Modifier
                         .align(Alignment.TopStart)
-                        .padding(10.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    color = NightForest.copy(alpha = 0.7f)
+                        .padding(8.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    color = NightForest.copy(alpha = 0.8f)
                 ) {
                     Text(
-                        "🌲 ${habits.size} trees",
-                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+                        "🏰 ${habits.size} TERRITORIES",
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                         color = MossGreen,
-                        fontSize = 11.sp
+                        style = MaterialTheme.typography.labelMedium
                     )
                 }
             }

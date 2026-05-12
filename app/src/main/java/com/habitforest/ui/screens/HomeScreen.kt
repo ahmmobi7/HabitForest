@@ -11,7 +11,9 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,8 +43,9 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddHabit,
-                containerColor = LeafGreen,
-                contentColor = NightForest
+                containerColor = GameOrange,
+                contentColor = Color.White,
+                shape = RoundedCornerShape(12.dp)
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Add Habit")
             }
@@ -54,7 +57,7 @@ fun HomeScreen(
                 onRewards = onNavigateToRewards
             )
         },
-        containerColor = ParchmentBg
+        containerColor = GameParchment
     ) { padding ->
 
         LazyColumn(
@@ -62,7 +65,7 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(padding),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
             // ── Header XP bar ──────────────────────────────────────────────
@@ -76,22 +79,27 @@ fun HomeScreen(
             // ── Today title ───────────────────────────────────────────────
             item {
                 Row(
-                    Modifier.fillMaxWidth(),
+                    Modifier.fillMaxWidth().padding(horizontal = 4.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        "Today's Habits",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = ForestGreen
+                        "Active Quests",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = DeepWood
                     )
                     val done = state.todayLogs.values.count { it == "YES" }
-                    Text(
-                        "$done/${state.habits.size} done",
-                        fontSize = 13.sp,
-                        color = EarthBrown
-                    )
+                    Surface(
+                        color = SoftWood.copy(0.1f),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(
+                            "$done/${state.habits.size} completed",
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = DeepWood
+                        )
+                    }
                 }
             }
 
@@ -114,10 +122,9 @@ fun HomeScreen(
             if (state.insights.isNotEmpty()) {
                 item {
                     Text(
-                        "Insights",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = ForestGreen
+                        "Battle Log",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = DeepWood
                     )
                 }
                 items(state.insights) { insight ->
@@ -143,17 +150,15 @@ fun HomeScreen(
             exit  = fadeOut() + slideOutVertically { it }
         ) {
             Box(contentAlignment = Alignment.BottomCenter) {
-                Surface(
-                    shape = RoundedCornerShape(24.dp),
-                    color = ForestGreen,
-                    shadowElevation = 8.dp
+                GamePanel(
+                    modifier = Modifier.padding(horizontal = 24.dp)
                 ) {
                     Text(
                         text = state.toast ?: "",
-                        modifier = Modifier.padding(horizontal = 28.dp, vertical = 14.dp),
-                        color = SkyBlue,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 15.sp
+                        color = DeepWood
                     )
                 }
             }
@@ -163,71 +168,90 @@ fun HomeScreen(
 
 @Composable
 private fun HeaderCard(user: User?) {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
-        color = ForestGreen,
-        shadowElevation = 4.dp
-    ) {
-        Column(Modifier.padding(20.dp)) {
+    GamePanel(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column {
+                Text(
+                    "HERO STATS",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = SoftWood
+                )
+                Text(
+                    "Level ${user?.level ?: 1}",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = DeepWood
+                )
+            }
+            Column(horizontalAlignment = Alignment.End) {
+                Text(
+                    "TOTAL XP",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = SoftWood
+                )
+                Text(
+                    "${user?.xp ?: 0}",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = GameOrange
+                )
+            }
+        }
+
+        Spacer(Modifier.height(16.dp))
+
+        // XP Progress Bar
+        Column {
             Row(
                 Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column {
-                    Text("🌳 Habit Forest", fontSize = 22.sp, fontWeight = FontWeight.ExtraBold, color = SkyBlue)
-                    Text("Keep growing every day!", fontSize = 13.sp, color = MossGreen)
-                }
-                Column(horizontalAlignment = Alignment.End) {
-                    Text("⚡ ${user?.xp ?: 0} XP", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = GoldenYes)
-                    Text("Level ${user?.level ?: 1}", fontSize = 13.sp, color = MossGreen)
-                }
+                Text("XP Progress", style = MaterialTheme.typography.labelMedium)
+                Text("${((user?.progressToNextLevel ?: 0f) * 100).toInt()}%", style = MaterialTheme.typography.labelMedium)
             }
-            Spacer(Modifier.height(12.dp))
-            // XP progress bar
-            val progress = user?.progressToNextLevel ?: 0f
-            LinearProgressIndicator(
-                progress = { progress },
-                modifier = Modifier.fillMaxWidth().height(6.dp),
-                color = GoldenYes,
-                trackColor = DarkMoss
-            )
             Spacer(Modifier.height(4.dp))
-            Text(
-                "${(progress * 100).toInt()}% to Level ${(user?.level ?: 1) + 1}",
-                fontSize = 11.sp,
-                color = MossGreen
-            )
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(12.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(DeepWood.copy(0.1f))
+            ) {
+                Box(
+                    Modifier
+                        .fillMaxWidth(user?.progressToNextLevel ?: 0f)
+                        .fillMaxHeight()
+                        .background(
+                            Brush.horizontalGradient(listOf(GameGold, GameOrange))
+                        )
+                )
+            }
         }
     }
 }
 
 @Composable
 private fun EmptyHabitsCard(onAdd: () -> Unit) {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        color = LightSurface,
-        shadowElevation = 2.dp
-    ) {
+    GamePanel(modifier = Modifier.fillMaxWidth()) {
         Column(
-            modifier = Modifier.padding(32.dp),
+            modifier = Modifier.padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("🌱", fontSize = 52.sp)
+            Text("📜", fontSize = 52.sp)
             Spacer(Modifier.height(12.dp))
-            Text("Your forest awaits!", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = ForestGreen)
+            Text("Quest Board Empty", style = MaterialTheme.typography.titleLarge)
             Spacer(Modifier.height(4.dp))
-            Text("Tap + to plant your first habit", fontSize = 14.sp, color = EarthBrown)
-            Spacer(Modifier.height(20.dp))
-            OutlinedButton(
+            Text("Visit the guild master to plant a habit", style = MaterialTheme.typography.bodyLarge, color = SoftWood)
+            Spacer(Modifier.height(24.dp))
+            Button(
                 onClick = onAdd,
-                border = BorderStroke(1.5.dp, LeafGreen),
-                shape = RoundedCornerShape(12.dp)
+                colors = ButtonDefaults.buttonColors(containerColor = DeepWood),
+                shape = RoundedCornerShape(8.dp)
             ) {
-                Text("Add First Habit 🌱", color = ForestGreen)
+                Text("Start New Quest", color = GameGold)
             }
         }
     }
@@ -235,27 +259,37 @@ private fun EmptyHabitsCard(onAdd: () -> Unit) {
 
 @Composable
 private fun ForestBottomBar(onForest: () -> Unit, onCheckIn: () -> Unit, onRewards: () -> Unit) {
-    NavigationBar(containerColor = NightForest, tonalElevation = 0.dp) {
-        NavigationBarItem(
-            selected = false,
-            onClick  = onCheckIn,
-            icon     = { Text("✅", fontSize = 22.sp) },
-            label    = { Text("Check In", color = MossGreen, fontSize = 11.sp) },
-            colors   = NavigationBarItemDefaults.colors(indicatorColor = DarkMoss)
-        )
-        NavigationBarItem(
-            selected = true,
-            onClick  = onForest,
-            icon     = { Text("🌳", fontSize = 22.sp) },
-            label    = { Text("Forest", color = LeafGreen, fontSize = 11.sp) },
-            colors   = NavigationBarItemDefaults.colors(indicatorColor = DarkMoss)
-        )
-        NavigationBarItem(
-            selected = false,
-            onClick  = onRewards,
-            icon     = { Text("🏆", fontSize = 22.sp) },
-            label    = { Text("Rewards", color = MossGreen, fontSize = 11.sp) },
-            colors   = NavigationBarItemDefaults.colors(indicatorColor = DarkMoss)
-        )
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        color = DeepWood,
+        shadowElevation = 8.dp
+    ) {
+        NavigationBar(
+            containerColor = Color.Transparent,
+            tonalElevation = 0.dp,
+            modifier = Modifier.height(72.dp)
+        ) {
+            NavigationBarItem(
+                selected = false,
+                onClick  = onCheckIn,
+                icon     = { Text("⚔️", fontSize = 24.sp) },
+                label    = { Text("Quests", style = MaterialTheme.typography.labelMedium, color = GameParchment) },
+                colors   = NavigationBarItemDefaults.colors(indicatorColor = SoftWood)
+            )
+            NavigationBarItem(
+                selected = true,
+                onClick  = onForest,
+                icon     = { Text("🌲", fontSize = 24.sp) },
+                label    = { Text("Kingdom", style = MaterialTheme.typography.labelMedium, color = GameParchment) },
+                colors   = NavigationBarItemDefaults.colors(indicatorColor = SoftWood)
+            )
+            NavigationBarItem(
+                selected = false,
+                onClick  = onRewards,
+                icon     = { Text("💰", fontSize = 24.sp) },
+                label    = { Text("Treasury", style = MaterialTheme.typography.labelMedium, color = GameParchment) },
+                colors   = NavigationBarItemDefaults.colors(indicatorColor = SoftWood)
+            )
+        }
     }
 }

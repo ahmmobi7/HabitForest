@@ -6,6 +6,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
@@ -32,46 +33,47 @@ fun HabitCard(
         if (bouncing) { delay(200); bouncing = false }
     }
 
-    val cardColor = when (todayStatus) {
-        "YES" -> LeafGreen.copy(alpha = 0.14f)
-        "NO"  -> CoralNo.copy(alpha = 0.08f)
-        else  -> LightSurface
+    val borderColor = when (todayStatus) {
+        "YES" -> LeafGreen
+        "NO"  -> HealthRed
+        else  -> BorderBrown
     }
 
-    Surface(
+    GameCard(
         modifier = Modifier
             .fillMaxWidth()
             .graphicsLayer(scaleX = scale, scaleY = scale),
-        shape = RoundedCornerShape(16.dp),
-        color = cardColor,
-        shadowElevation = if (logged) 2.dp else 4.dp,
-        border = if (todayStatus == "YES")
-            androidx.compose.foundation.BorderStroke(1.dp, LeafGreen.copy(0.3f))
-        else null
+        borderColor = borderColor
     ) {
         Row(
-            modifier = Modifier.padding(14.dp),
+            modifier = Modifier.padding(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Tree visual
-            Text(habit.treeEmoji, fontSize = 36.sp)
+            // Tree visual or Quest Icon
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .graphicsLayer(rotationZ = if (todayStatus == "YES") 10f else 0f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(habit.treeEmoji, fontSize = 32.sp)
+            }
 
             Spacer(Modifier.width(12.dp))
 
             // Info
             Column(Modifier.weight(1f)) {
                 Text(
-                    habit.name,
-                    fontWeight = FontWeight.Bold,
-                    fontSize   = 16.sp,
-                    color      = NightForest,
+                    habit.name.uppercase(),
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = DeepWood,
                     maxLines   = 1
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("${habit.icon}  ", fontSize = 13.sp)
-                    Text("🔥 ${habit.streak}d", fontSize = 12.sp, color = EarthBrown)
-                    Text("  ·  ", fontSize = 12.sp, color = MossGreen)
-                    Text(habit.stage.label, fontSize = 12.sp, color = ForestGreen, fontWeight = FontWeight.Medium)
+                    Text("🔥 ${habit.streak} DAY STREAK", style = MaterialTheme.typography.labelMedium, color = GameOrange)
+                    Text("  •  ", style = MaterialTheme.typography.labelMedium, color = SoftWood)
+                    Text(habit.stage.label.uppercase(), style = MaterialTheme.typography.labelMedium, color = ForestGreen)
                 }
             }
 
@@ -79,33 +81,40 @@ fun HabitCard(
 
             // Action area
             if (logged) {
-                Text(
-                    if (todayStatus == "YES") "✅ Done!" else "⏭ Skipped",
-                    fontSize   = 13.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color      = if (todayStatus == "YES") ForestGreen else EarthBrown
-                )
+                Column(horizontalAlignment = Alignment.End) {
+                    Text(
+                        if (todayStatus == "YES") "COMPLETED" else "FAILED",
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = if (todayStatus == "YES") ForestGreen else HealthRed
+                    )
+                    Text(
+                        if (todayStatus == "YES") "+10 XP" else "+0 XP",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = if (todayStatus == "YES") GameGold else SoftWood
+                    )
+                }
             } else {
-                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     // NO button
-                    OutlinedButton(
-                        onClick      = { bouncing = true; onNo() },
-                        modifier     = Modifier.size(48.dp, 36.dp),
-                        contentPadding = PaddingValues(0.dp),
-                        shape        = RoundedCornerShape(10.dp),
-                        border       = androidx.compose.foundation.BorderStroke(1.dp, CoralNo)
+                    IconButton(
+                        onClick = { bouncing = true; onNo() },
+                        modifier = Modifier
+                            .size(36.dp)
+                            .background(HealthRed.copy(0.1f), RoundedCornerShape(8.dp))
                     ) {
-                        Text("✗", fontSize = 16.sp, color = CoralNo)
+                        Text("✕", color = HealthRed, fontWeight = FontWeight.Bold)
                     }
+
                     // YES button
                     Button(
                         onClick      = { bouncing = true; onYes() },
                         modifier     = Modifier.height(36.dp),
-                        contentPadding = PaddingValues(horizontal = 14.dp),
-                        shape        = RoundedCornerShape(10.dp),
-                        colors       = ButtonDefaults.buttonColors(containerColor = LeafGreen)
+                        contentPadding = PaddingValues(horizontal = 12.dp),
+                        shape        = RoundedCornerShape(8.dp),
+                        colors       = ButtonDefaults.buttonColors(containerColor = ForestGreen)
                     ) {
-                        Text("YES ✓", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = NightForest)
+                        Text("CLAIM ✓", style = MaterialTheme.typography.labelMedium, color = Color.White)
                     }
                 }
             }
