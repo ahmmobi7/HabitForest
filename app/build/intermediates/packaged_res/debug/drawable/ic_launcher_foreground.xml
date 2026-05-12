@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+  <!-- Tree crown -->
+  <path
+      android:fillColor="#2D6A4F"
+      android:pathData="M54,12 C54,12 18,46 18,66 C18,82 34,92 54,92 C74,92 90,82 90,66 C90,46 54,12 54,12 Z"/>
+  <!-- Tree trunk -->
+  <path
+      android:fillColor="#8B5E3C"
+      android:pathData="M49,92 L49,76 L59,76 L59,92 Z"/>
+  <!-- Leaf highlight -->
+  <path
+      android:fillColor="#52B788"
+      android:pathData="M54,20 C54,20 30,50 30,66 C30,74 40,82 54,84 C54,84 54,20 54,20 Z"/>
+</vector>

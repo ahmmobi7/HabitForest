@@ -1,0 +1,3 @@
+<resources>
+    <style name="Theme.HabitForest" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
