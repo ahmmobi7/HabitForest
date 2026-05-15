@@ -1,18 +1,18 @@
-#Thu Apr 23 01:24:16 IST 2026
-base.0=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.10=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
-base.11=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
-base.12=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
-base.13=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
-base.2=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
-base.3=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\11\\classes.dex
-base.4=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
-base.5=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
-base.6=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\15\\classes.dex
-base.7=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.8=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
-base.9=C\:\\Habit Forest\\HabitForest\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
+#Thu May 14 22:50:11 IST 2026
+base.0=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.10=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
+base.11=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
+base.12=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.13=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
+base.2=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
+base.3=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\11\\classes.dex
+base.4=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
+base.5=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
+base.6=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\15\\classes.dex
+base.7=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.8=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
+base.9=C\:\\Habit Forest\\redesign\\HabitForest\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\7\\classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.10=8/classes.dex

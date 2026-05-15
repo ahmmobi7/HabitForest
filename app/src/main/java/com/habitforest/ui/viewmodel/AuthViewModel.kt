@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+import android.util.Log
+
 sealed class AuthState {
     object Idle    : AuthState()
     object Loading : AuthState()
@@ -27,11 +29,23 @@ class AuthViewModel @Inject constructor(
     val isLoggedIn: Boolean get() = repo.isLoggedIn()
 
     fun signInAnonymously() {
+        Log.d("AuthViewModel", "signInAnonymously() called")
         viewModelScope.launch {
             _state.value = AuthState.Loading
             repo.signInAnonymously()
-                .onSuccess { _state.value = AuthState.Success }
-                .onFailure { _state.value = AuthState.Error(it.message ?: "Sign-in failed") }
+                .onSuccess { 
+                    Log.d("AuthViewModel", "Sign-in successful")
+                    _state.value = AuthState.Success 
+                }
+                .onFailure { 
+                    val message = if (it.message?.contains("provider_disabled", ignoreCase = true) == true) {
+                        "Anonymous auth is disabled in Supabase dashboard."
+                    } else {
+                        it.message ?: "Sign-in failed"
+                    }
+                    Log.e("AuthViewModel", "Sign-in failed: $message", it)
+                    _state.value = AuthState.Error(message)
+                }
         }
     }
 }

@@ -38,6 +38,23 @@
                     }
                 },
                 {
+                    "source": "C:\\Habit Forest\\redesign\\HabitForest\\app\\src\\main\\res\\values\\themes.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endColumns": "88",
+                        "endOffsets": "101"
+                    },
+                    "to": {
+                        "startLines": "243",
+                        "startColumns": "4",
+                        "startOffsets": "15584",
+                        "endColumns": "87",
+                        "endOffsets": "15667"
+                    }
+                },
+                {
                     "source": "C:\\Users\\husain\\.gradle\\caches\\8.10.2\\transforms\\9ac2b07185f3d04c865abccf3d407f4f\\transformed\\navigation-runtime-2.8.2\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,10,13",
@@ -129,23 +146,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Habit Forest\\HabitForest\\HabitForest\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "16",
-                        "endColumns": "49",
-                        "endOffsets": "61"
-                    },
-                    "to": {
-                        "startLines": "115",
-                        "startColumns": "4",
-                        "startOffsets": "7050",
-                        "endColumns": "49",
-                        "endOffsets": "7095"
-                    }
-                },
-                {
                     "source": "C:\\Users\\husain\\.gradle\\caches\\8.10.2\\transforms\\237a4740bbe05a93db8a3ab79e1ec958\\transformed\\core-1.15.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,98,99,103,104,105,106,112,122,157,178,211",
@@ -218,23 +218,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Habit Forest\\HabitForest\\HabitForest\\app\\src\\main\\res\\values\\themes.xml",
-                    "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "16",
-                        "endColumns": "88",
-                        "endOffsets": "100"
-                    },
-                    "to": {
-                        "startLines": "243",
-                        "startColumns": "4",
-                        "startOffsets": "15584",
-                        "endColumns": "87",
-                        "endOffsets": "15667"
-                    }
-                },
-                {
                     "source": "C:\\Users\\husain\\.gradle\\caches\\8.10.2\\transforms\\3172b1c094ff5e6c26953a124903a0c7\\transformed\\navigation-common-2.8.2\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,15,21,27,30",
@@ -268,6 +251,23 @@
                         "startOffsets": "6967",
                         "endColumns": "82",
                         "endOffsets": "7045"
+                    }
+                },
+                {
+                    "source": "C:\\Habit Forest\\redesign\\HabitForest\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endColumns": "49",
+                        "endOffsets": "62"
+                    },
+                    "to": {
+                        "startLines": "115",
+                        "startColumns": "4",
+                        "startOffsets": "7050",
+                        "endColumns": "49",
+                        "endOffsets": "7095"
                     }
                 },
                 {

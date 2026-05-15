@@ -404,20 +404,20 @@ public final class DaggerHabitForestApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_habitforest_ui_viewmodel_RewardViewModel = "com.habitforest.ui.viewmodel.RewardViewModel";
+      static String com_habitforest_ui_viewmodel_HomeViewModel = "com.habitforest.ui.viewmodel.HomeViewModel";
 
       static String com_habitforest_ui_viewmodel_AuthViewModel = "com.habitforest.ui.viewmodel.AuthViewModel";
 
-      static String com_habitforest_ui_viewmodel_HomeViewModel = "com.habitforest.ui.viewmodel.HomeViewModel";
+      static String com_habitforest_ui_viewmodel_RewardViewModel = "com.habitforest.ui.viewmodel.RewardViewModel";
 
       @KeepFieldType
-      RewardViewModel com_habitforest_ui_viewmodel_RewardViewModel2;
+      HomeViewModel com_habitforest_ui_viewmodel_HomeViewModel2;
 
       @KeepFieldType
       AuthViewModel com_habitforest_ui_viewmodel_AuthViewModel2;
 
       @KeepFieldType
-      HomeViewModel com_habitforest_ui_viewmodel_HomeViewModel2;
+      RewardViewModel com_habitforest_ui_viewmodel_RewardViewModel2;
     }
   }
 
@@ -484,20 +484,20 @@ public final class DaggerHabitForestApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
+      static String com_habitforest_ui_viewmodel_HomeViewModel = "com.habitforest.ui.viewmodel.HomeViewModel";
+
       static String com_habitforest_ui_viewmodel_RewardViewModel = "com.habitforest.ui.viewmodel.RewardViewModel";
 
       static String com_habitforest_ui_viewmodel_AuthViewModel = "com.habitforest.ui.viewmodel.AuthViewModel";
 
-      static String com_habitforest_ui_viewmodel_HomeViewModel = "com.habitforest.ui.viewmodel.HomeViewModel";
+      @KeepFieldType
+      HomeViewModel com_habitforest_ui_viewmodel_HomeViewModel2;
 
       @KeepFieldType
       RewardViewModel com_habitforest_ui_viewmodel_RewardViewModel2;
 
       @KeepFieldType
       AuthViewModel com_habitforest_ui_viewmodel_AuthViewModel2;
-
-      @KeepFieldType
-      HomeViewModel com_habitforest_ui_viewmodel_HomeViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {

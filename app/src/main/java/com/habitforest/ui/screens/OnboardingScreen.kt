@@ -1,5 +1,6 @@
 package com.habitforest.ui.screens
 
+import android.util.Log
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
@@ -12,7 +13,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -41,9 +41,18 @@ fun OnboardingScreen(
     val pager = rememberPagerState { PAGES.size }
     val scope = rememberCoroutineScope()
     val authState by vm.state.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // Derived state for button label and action
+    val isLast by remember { derivedStateOf { pager.currentPage == PAGES.lastIndex } }
 
     LaunchedEffect(authState) {
-        if (authState is AuthState.Success) onFinish()
+        val current = authState
+        if (current is AuthState.Error) {
+            snackbarHostState.showSnackbar(current.message)
+        } else if (current is AuthState.Success) {
+            onFinish()
+        }
     }
 
     Box(
@@ -80,10 +89,16 @@ fun OnboardingScreen(
             }
         }
 
+        // Snackbar
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.TopCenter).padding(top = 16.dp)
+        )
+
         // CTA button
-        val isLast = pager.currentPage == PAGES.lastIndex
         Button(
             onClick = {
+                Log.d("OnboardingScreen", "Button clicked. isLast=$isLast, page=${pager.currentPage}")
                 if (isLast) {
                     vm.signInAnonymously()
                 } else {

@@ -1,5 +1,6 @@
 package com.habitforest.data.repository
 
+import android.util.Log
 import com.habitforest.data.local.HabitDao
 import com.habitforest.data.model.*
 import com.habitforest.data.remote.supabase
@@ -23,16 +24,36 @@ class HabitRepository @Inject constructor(
 
     // ─── Anonymous sign-in ───────────────────────────────────────────────────
     suspend fun signInAnonymously(): Result<Unit> = runCatching {
-        supabase.auth.signInAnonymously()
-        val uid = supabase.auth.currentUserOrNull()?.id ?: return@runCatching
-        // Ensure local user row exists
+        Log.d("HabitRepository", "Starting anonymous sign-in...")
+        
+        // 1. Authenticate
+        kotlinx.coroutines.withTimeout(15000) {
+            supabase.auth.signInAnonymously()
+        }
+        
+        val uid = supabase.auth.currentUserOrNull()?.id
+        Log.d("HabitRepository", "Sign-in successful, UID: $uid")
+        if (uid == null) throw Exception("User ID is null after sign-in")
+        
+        // 2. Ensure local user row exists
         val existing = dao.getUser(uid)
         if (existing == null) {
+            Log.d("HabitRepository", "Creating new local user...")
             val user = User(id = uid)
             dao.upsertUser(user)
-            // Also push to Supabase (trigger handles it, but belt-and-suspenders)
-            try { supabase.from("users").upsert(user) } catch (_: Exception) {}
+            
+            // 3. Sync to remote (optional/best effort for onboarding)
+            try { 
+                kotlinx.coroutines.withTimeout(5000) {
+                    supabase.from("users").upsert(user)
+                }
+                Log.d("HabitRepository", "User upserted to Supabase")
+            } catch (e: Exception) {
+                Log.e("HabitRepository", "Failed to upsert user to Supabase (Remote), but continuing...", e)
+            }
         }
+    }.onFailure {
+        Log.e("HabitRepository", "Sign-in failed", it)
     }
 
     suspend fun signOut(): Result<Unit> = runCatching {

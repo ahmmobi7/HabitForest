@@ -58,7 +58,11 @@ dependencies {
 
     // Core
     implementation("androidx.core:core-ktx:1.15.0")
-    implementation("androidx.browser:browser:1.8.0")
+    implementation("androidx.browser:browser:1.8.0") {
+        version {
+            strictly("1.8.0")
+        }
+    }
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
     implementation("androidx.activity:activity-compose:1.9.2")
@@ -76,11 +80,17 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
 
-    // Supabase
-    implementation(platform("io.github.jan-tennert.supabase:bom:3.0.0"))
+    // Supabase & Ktor
+    implementation(platform("io.github.jan-tennert.supabase:bom:3.0.1"))
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
     implementation("io.github.jan-tennert.supabase:auth-kt")
-    implementation("io.ktor:ktor-client-android:2.3.12")
+    
+    implementation(platform("io.ktor:ktor-bom:3.0.1"))
+    implementation("io.ktor:ktor-client-okhttp")
+    implementation("io.ktor:ktor-client-core")
+    implementation("io.ktor:ktor-client-logging")
+    implementation("io.ktor:ktor-client-content-negotiation")
+    implementation("io.ktor:ktor-serialization-kotlinx-json")
 
     // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.9.1")
